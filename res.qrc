@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="images">
+    <file>wizardhatsymbol.png</file>
+    <file>backgroundimage.jpg</file>
+    <file>shovelandpickaxesymbol.png</file>
+  </qresource>
+</RCC>
