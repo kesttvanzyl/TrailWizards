@@ -378,11 +378,16 @@ padding-bottom: 3px;
     <widget class="QLabel" name="label_8">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>100</x>
        <y>410</y>
-       <width>301</width>
+       <width>341</width>
        <height>21</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
      </property>
      <property name="styleSheet">
       <string notr="true">color: rgb(255, 255, 255);</string>
@@ -394,11 +399,16 @@ padding-bottom: 3px;
     <widget class="QLabel" name="label_9">
      <property name="geometry">
       <rect>
-       <x>150</x>
+       <x>120</x>
        <y>430</y>
-       <width>291</width>
+       <width>301</width>
        <height>16</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
      </property>
      <property name="styleSheet">
       <string notr="true">color: rgb(255, 255, 255);</string>

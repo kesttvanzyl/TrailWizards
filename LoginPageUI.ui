@@ -242,8 +242,13 @@ background-color: rgb(18, 36, 33);</string>
        <x>30</x>
        <y>520</y>
        <width>491</width>
-       <height>31</height>
+       <height>21</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>8</pointsize>
+      </font>
      </property>
      <property name="styleSheet">
       <string notr="true">color: rgb(255, 255, 255);
