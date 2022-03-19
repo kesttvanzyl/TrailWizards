@@ -6,6 +6,7 @@ import random
 from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.uic import loadUi
 import zmq
+import pyclip
 from time import sleep
 
 """ A socket publisher and subscriber """
@@ -16,17 +17,17 @@ context = zmq.Context()
 socket_snd = context.socket(zmq.PUB)
 # bind it to a socket, local this time, set to what ever you want to use
 socket_snd.bind('tcp://127.0.0.1:2001')  # local port for testing
-# socket.bind('tcp:////127.0.0.1:9523')     # run on the flip3 server with port 9523
 
 #  set up the socket to connect to the port for rec the reply
 socket_rec = context.socket(zmq.SUB)
 # connect the socket to the port (same as in the publisher)
 socket_rec.connect('tcp://127.0.0.1:2000')
-# socket.connect('tcp://127.0.0.1:9524')  # for use on the flip3 server
-# socket.connect('tcp://flip3.engr.oregonstate.edu:9524')  # experiment for listening locally
 
 # setting up the socket option and listen
 socket_rec.setsockopt_string(zmq.SUBSCRIBE, "")
+
+credentials_dict = {}
+
 
 class LoginApp(QDialog):
     def __init__(self):
@@ -38,7 +39,17 @@ class LoginApp(QDialog):
     def login(self):
         username = self.usernameCred.text()
         password = self.passwordCred.text()
-        widget.setCurrentIndex(2)
+        if username in credentials_dict:
+            password_cred = credentials_dict[username]
+            if password_cred == password:
+                widget.setCurrentIndex(2)
+            else:
+                QMessageBox.information(self, "Whoops!",
+                                        "Incorrect password. Please try again.")
+
+        else:
+            QMessageBox.information(self, "Whoops!", "Username not found. Please try again. \n If you are not a member "
+                                                     "yet, make sure to Register before trying to Login.")
 
     def show_registration(self):
         widget.setCurrentIndex(1)
@@ -57,6 +68,8 @@ class RegisterApp(QDialog):
         email = self.emailEntry.text()
         userentry = self.usernameRegisterEntry.text()
         passwordentry = self.passwordRegisterEntry.text()
+        credentials_dict[userentry] = passwordentry
+        widget.setCurrentIndex(0)
 
     def generatepassword(self):
 
@@ -72,17 +85,10 @@ class RegisterApp(QDialog):
             # setting up the received message
             message_ret = socket_rec.recv_pyobj()
             print("Returned message:", message_ret)
-
-            QMessageBox.information(self, "Password Generator Result", "Secure Password:  " + message_ret + "\n Write "
-                                                                                                            "down "
-                                                                                                            "password "
-                                                                                                            "and "
-                                                                                                            "memorize "
-                                                                                                            "it or "
-                                                                                                            "keep "
-                                                                                                            "it in a "
-                                                                                                            "secure "
-                                                                                                            "place.")
+            pyclip.copy(message_ret)
+            QMessageBox.information(self, "Password Generator Result", "Secure Password:  " + message_ret +
+                                    "\n Your password has automatically been copied to your clipboard. Paste your new "
+                                    "password in the password entry box.")
             break
 
     def showloginpage(self):

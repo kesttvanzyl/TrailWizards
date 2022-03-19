@@ -225,11 +225,16 @@ background-color:rgb(208, 253, 246);
     <widget class="QLabel" name="label_6">
      <property name="geometry">
       <rect>
-       <x>80</x>
+       <x>60</x>
        <y>530</y>
-       <width>381</width>
+       <width>451</width>
        <height>31</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
      </property>
      <property name="styleSheet">
       <string notr="true">color: rgb(255, 255, 255);
